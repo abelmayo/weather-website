@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="leaderboard-container">
+    <h1>Leaderboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>High Score</th>
+                <th>Date Achieved</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rank, entry in enumerate(leaderboard, start=1) %}
+            <tr>
+                <td>{{ rank }}</td>
+                <td>{{ entry[0] }}</td>
+                <td>{{ entry[1] }}</td>
+                <td>{{ entry[2] }}</td>                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

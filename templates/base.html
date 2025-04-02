@@ -1,0 +1,57 @@
+<html lang="en">
+    <head>
+        <title>{% block title %}Home{%endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles.css')}}">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css" rel="stylesheet">
+
+    </head>
+    
+
+    <body>
+
+        <!-- top navigation bar -->
+        <div class="topbar">
+            <a href="{{ url_for('home') }}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+            <a href="{{ url_for('compare') }}" class="{% if request.path == '/compare' %}active{% endif %}">Compare</a>
+
+            <a href="{{ url_for('game') }}" class="{% if request.path == '/game' %}active{% endif %}">Game</a>
+            <a href="{{ url_for('register') }}" class="{% if request.path == url_for('register') %}active{% endif %}">Register</a>
+            <a href="{{ url_for('login') }}" class="{% if request.path == url_for('login') %}active{% endif %}">Login</a>
+
+            {% if g.user_name %}
+                <p class="greeting">Hi, {{ g.user_name }}!</p>
+                <a href="{{ url_for('logout')  }}">Logout</a>
+            {% endif %}
+
+            <div class="search-container">
+                <form action="/" method="POST" class="search-form">
+                    <input type="text" name="location" class="search-input" placeholder="Enter location...">
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+            </div>
+            
+            
+        </div>
+    
+        <!-- content -->
+        <div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    
+
+        <script>
+            function togglePassword(fieldId) {
+                const field = document.getElementById(fieldId);
+                if (field.type === "password") {
+                    field.type = "text";
+                }else {
+                    field.type = "password";
+                }
+            }
+        </script>
+
+
+    </body>
+    </html>

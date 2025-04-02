@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="game-over-container">
+    <h1>Game Over</h1>
+    <p>Your final score: <strong>{{ score }}</strong></p>
+    <a href="{{ url_for('game') }}">Play Again</a>
+</div>
+<style>
+    .game-over-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+</style>
+{% endblock %}

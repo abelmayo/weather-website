@@ -1,0 +1,41 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+</head>
+
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<body>
+    <div class="form-div">
+        <form method="POST" action="{{ url_for('login') }}">
+            
+            <div class="user-box">
+                <input type="text" name="email" required>
+
+                <label for="email">Email</label>
+            </div>
+            <div class="user-box">
+                <div class="password-container">
+                    <input type="password" name="password" id="password" required>
+                    <label for="password">Password</label>
+                    <button type="button" class="eye-button" onclick="togglePassword('password')">
+                        <img src="{{ url_for('static', filename='images/eye-icon.svg') }}" alt="Eye Icon" class="eye-icon">
+                    </button>
+                </div>
+            </div>
+            
+            <div class="user-box">
+                <button type="submit">Login</button>
+            </div>
+
+    </form>
+    {% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+    {% endfor %}
+
+    </div>
+</body>
+{% endblock %}

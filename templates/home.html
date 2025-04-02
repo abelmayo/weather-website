@@ -1,0 +1,58 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+</head>
+
+
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<body style="background-image: url('{{ background_image }}'); background-size: cover; background-position: center; color: black;">
+<main class="container">
+
+    <div class="grid-container">
+        <div class="weather-summary">
+            <h1> {{location_geocoded}} </h1>
+            <h2>Weather Summary</h2>
+            <div class="weather-condition" style="display: flex; align-items: center; gap: 10px;">
+                <img src="{{ weather_summary['icon_url'] }}" alt="Weather Icon" style="width: 50px; height: 50px;">
+                <p>{{ weather_summary['weather'] }}</p>
+            </div>
+            <p>Temp: {{ weather_summary['temperature'] }}°C</p>
+            <p>Feels Like: {{ weather_summary['feels_like'] }}°C</p>
+        </div>
+        
+
+    <section class="weekly-forecast">
+        <h3>Week's Forecast</h3>
+        <ul>
+            {% for day in forecast %}
+            <li>{{ day.date }} - High: {{ day.high_temp }}°C, Low: {{ day.low_temp }}°C, {{ day.weather_desc }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    
+
+    <div class="weather-container">
+        <section class="today-forecast">
+            <h3>Today</h3>
+            <p>{{ today_summary }}</p>
+        </section>
+
+        <section class="looking-ahead">
+            <h3>Looking Ahead</h3>
+            <p>{{ looking_ahead_summary }}</p>
+            <form method="post">
+                <input type="date" name="dateinp"> 
+                <button>Look Ahead</button>
+            </form>
+
+        </section>
+    </div>
+    </div>
+</main>
+
+</body>
+{% endblock %}

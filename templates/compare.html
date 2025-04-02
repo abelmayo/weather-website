@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Compare Weather{% endblock %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+</head>
+
+<h2>Compare Weather</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+<form action="{{ url_for('compare') }}" method="post">
+    <label for="locations">Enter location: </label>
+    <input type="text" id="locations" name="locations" required>
+    <button type="submit">Add</button>
+</form>
+
+{% if locations %}
+<h3>Locations to Compare:</h3>
+<ul>
+    {% for location in locations %}
+    <li>{{ location }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Button to clear all locations -->
+
+<form action="{{ url_for('compare') }}" method="post">
+    <input type="hidden" name="clear" value="true">
+    <button type="submit">Clear All</button>
+</form>
+<!-- Display weather data for each location -->
+{% if weather_data %}
+<h3>Weather Data:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Location</th>
+            <th>Temperature (°C)</th>
+            <th>Feels Like (°C)</th>
+            <th>Humidity (%)</th>
+            <th>Wind Speed (m/s)</th>
+            <th>Weather</th>
+            <th>Visibility (m)</th>
+            <th>Cloud Coverage (%)</th>
+            <th>Precipitation (mm)</th>
+            <th>Sunrise</th>
+            <th>Sunset</th>
+            <th>Icon</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in weather_data %}
+        <tr>
+            <td>{{ data.location }}</td>
+            <td>{{ data.temperature }}</td>
+            <td>{{ data.feels_like }}</td>
+            <td>{{ data.humidity }}</td>
+            <td>{{ data.wind_speed }}</td>
+            <td>{{ data.weather_description }}</td>
+            <td>{{ data.visibility }}</td>
+            <td>{{ data.cloud_coverage }}</td>
+            <td>{{ data.precipitation }}</td>
+            <td>{{ data.sunrise }}</td>
+            <td>{{ data.sunset }}</td>
+            <td><img src="http://openweathermap.org/img/wn/{{ data.icon }}.png" alt="{{ data.weather_description }}">
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endif %}
+
+{% endblock %}

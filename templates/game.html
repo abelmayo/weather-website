@@ -1,0 +1,56 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+</head>
+
+{% extends "base.html" %}
+{% block content %}
+<div class="game-container">
+
+    <div class="scoreboard">
+        <p class="current-score">Score: {{ score }}</p>
+        <p class="high-score">High Score: {{ high_score }}</p>
+    </div>
+
+    
+    <div class="game-content">
+        <div class="city-container current-city">
+            <img src="{{ current_image }}" alt="{{ current_city }}">
+            <div class="city-overlay">
+                <h2>{{ current_city }}</h2>
+                <p>Temperature: {{ current_temp }}°C</p>
+                <a href="{{ url_for('leaderboard') }}" class="leaderboard-button">View Leaderboard</a>
+            </div>
+            
+    
+        </div>
+
+        <div class="city-container next-city">
+            <img src="{{ next_image }}" alt="{{ next_city }}">
+            <div class="city-overlay">
+                <h2>{{ next_city }}</h2>
+                <p>Does it have a higher or lower temperature?</p>
+
+                
+            </div>
+
+         
+            <form method="POST">
+                <input type="hidden" name="current_city" value="{{ current_city }}">
+                <input type="hidden" name="next_city" value="{{ next_city }}">
+                <input type="hidden" name="current_temp" value="{{ current_temp }}">
+                <input type="hidden" name="next_temp" value="{{ next_temp }}">
+                <input type="hidden" name="current_image" value="{{ current_image }}">
+                <input type="hidden" name="next_image" value="{{ next_image }}">
+                <input type="hidden" name="score" value="{{ score }}">
+
+                <button type="submit" name="guess" value="higher">Higher</button>
+                <button type="submit" name="guess" value="lower">Lower</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+{% endblock %}
